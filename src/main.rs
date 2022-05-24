@@ -18,4 +18,10 @@ fn main() {
     let file = LIBParser::parse(Rule::main, &unparsed_file)
         .expect("cannot parse file.")
         .next().unwrap();
+
+    for expression in file.into_inner() {
+        match expression.as_rule() {
+            Rule::
+        }
+    }
 }

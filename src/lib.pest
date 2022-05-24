@@ -7,7 +7,7 @@ name_type = @{ alpha+ ~ digit* }
 
 types = { "user" | "book" }
 
-string = _{ "'" ~ name_type ~ "'" }
+string = _{ "'" ~ alpha+ ~ "'" }
 index = { "index" ~ number }
 title = { "title" ~ string }
 author = { "author" ~ string }
@@ -24,5 +24,5 @@ statement = _{
 }
 
 brackets = { "{" ~ statement+ ~ "}"}
-expression = { (init ~ ";") | (add | print) ~ brackets ~ ";" }
-main = { expression+ }
+expression = { init | (add | print) ~ brackets }
+main = _{ (expression ~ ";")+ }
