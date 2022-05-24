@@ -9,6 +9,25 @@ extern crate pest_derive;
 #[grammar = "lib.pest"]
 pub struct LIBParser;
 
+#[derive(Debug)]
+struct Book {
+    title: String,
+    author: String
+}
+
+#[derive(Debug)]
+struct User {
+    index: u16,
+    name: String,
+    books: Vec<Book>
+}
+
+#[derive(Debug)]
+struct Library {
+    name: String,
+    users: Vec<User>
+}
+
 fn main() {
     // get file
     let unparsed_file = fs::read_to_string("lang_target.lib")
@@ -19,9 +38,27 @@ fn main() {
         .expect("cannot parse file.")
         .next().unwrap();
 
+    let mut libraries: Vec<Library> = Vec::new();
+
     for expression in file.into_inner() {
         match expression.as_rule() {
-            Rule::
+            Rule::init => {
+                let name = expression.into_inner().as_str();
+                libraries.push(Library {
+                    name: name.to_string(),
+                    users: Vec::new()
+                })
+            },
+
+            Rule::add => {
+                
+            },
+            Rule::print => {
+
+            },
+            _ => unreachable!()
         }
     }
+
+    println!("library {:?}", libraries)
 }

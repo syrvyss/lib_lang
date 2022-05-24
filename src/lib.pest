@@ -14,8 +14,8 @@ author = { "author" ~ string }
 name = { "name" ~ string }
 
 init = { name_type ~ "init" }
-add = { name_type ~ "add" ~ types }
-print = { name_type ~ "print" ~ types }
+add = { name_type ~ "add" ~ types ~ brackets }
+print = { name_type ~ "print" ~ types ~ brackets }
 
 statement = _{ 
     (index ~ "," ~ title ~ "," ~ author) |
@@ -24,5 +24,5 @@ statement = _{
 }
 
 brackets = { "{" ~ statement+ ~ "}"}
-expression = { init | (add | print) ~ brackets }
+expression = { init | (add | print) }
 main = _{ (expression ~ ";")+ }
