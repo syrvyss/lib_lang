@@ -1,13 +1,13 @@
 lib init;
 lib add user {
     index 1,
-    name "Nikolaj"
+    name 'Nikolaj'
 };
 
 lib add book {
     index 1,
-    title "The Hobbit",
-    author "J. R. R. Tolkien"
+    title 'The Hobbit',
+    author 'J. R. R. Tolkien'
 };
 
 lib print user {
