@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["lib_lang","maplit","pest","pest_derive","pest_generator","pest_meta","proc_macro2","quote","syn","ucd_trie","unicode_ident"];
