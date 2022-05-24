@@ -3,7 +3,7 @@ extern crate pest;
 extern crate pest_derive;
 
 #[derive(Parser)]
-#[grammar = "csv.pest"]
+#[grammar = "lib.pest"]
 pub struct CSVParser;
 
 fn main() {
