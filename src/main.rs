@@ -4,7 +4,7 @@ extern crate pest_derive;
 
 #[derive(Parser)]
 #[grammar = "lib.pest"]
-pub struct CSVParser;
+pub struct LIBParser;
 
 fn main() {
     println!("Hello, world!");
