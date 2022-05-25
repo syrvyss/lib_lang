@@ -6,7 +6,7 @@ lib add user {
 lib add book {
     index 1,
     title 'The Hobbit',
-    author 'J. R. R. Tolkien'
+    author 'Tolkien'
 };
 
 lib print user {
