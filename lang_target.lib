@@ -1,6 +1,5 @@
 lib init;
 lib add user {
-    index 1,
     name 'Nikolaj'
 };
 
