@@ -19,7 +19,7 @@ print = { name_type ~ "print" ~ types ~ brackets }
 
 statement = _{ 
     (index ~ "," ~ title ~ "," ~ author) |
-    (index ~ "," ~ name) |
+    (name) |
     (index)
 }
 

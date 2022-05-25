@@ -28,6 +28,10 @@ struct Library {
     users: Vec<User>
 }
 
+fn parse_add_from_expr(pair: pest::iterators::Pair<Rule>) {
+
+}
+
 fn main() {
     // get file
     let unparsed_file = fs::read_to_string("lang_target.lib")
@@ -51,10 +55,38 @@ fn main() {
             },
 
             Rule::add => {
-                
+                let mut inner_values = expression.into_inner();
+
+                let mut lib: &Library;
+                let mut type_name: &str;
+
+                for pair in inner_values {
+
+                    match pair.as_rule() {
+                        Rule::name_type => {
+                            let name = expression.into_inner().as_str();
+                            lib = libraries.iter().filter(|x| x.name == name).next().unwrap();
+                        }, // library name
+                        Rule::types => {
+                            type_name = expression.into_inner().as_str();
+                        }, // user, book
+                        Rule::brackets => {
+                            
+                        },
+                        _ => unreachable!()
+                    }
+
+
+                }
             },
             Rule::print => {
-
+                let mut inner_values = expression.into_inner();
+                match inner_values.as_rule() {
+                    Rule::name_type => {},
+                    Rule::types => {},
+                    Rule::brackets => {},
+                    _ => unreachable!()
+                }
             },
             _ => unreachable!()
         }
