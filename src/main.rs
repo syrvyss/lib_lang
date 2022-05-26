@@ -32,6 +32,21 @@ struct Library {
     users: Vec<User>
 }
 
+impl Library {
+    fn output(&self) {
+        println!("------------------");
+        println!("Users in library: ");
+            &self.users.iter().for_each(|x| println!("{:?}", x.name));
+        println!("Books in library: ");
+            for i in self.users.iter() {
+                i.books.iter()
+                    .for_each(|x| println!("Loaner: {:?}, {:?}, {:?}", i.name, x.title, x.author));
+            }
+        println!("Structure: {:?}", &self);
+        println!("------------------");
+    }
+}
+
 #[derive(PartialEq)]
 enum Type {
     Book,
@@ -142,19 +157,6 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
     Ok(libraries.iter().next().unwrap().clone())
 }
 
-fn output(library: Library) {
-    println!("------------------");
-    println!("Users in library: ");
-        library.users.iter().for_each(|x| println!("{:?}", x.name));
-    println!("Books in library: ");
-        for i in library.users.iter() {
-            i.books.iter()
-                .for_each(|x| println!("Loaner: {:?}, {:?}, {:?}", i.name, x.title, x.author));
-        }
-    println!("Structure: {:?}", &library);
-    println!("------------------");
-}
-
 fn main() {
     let path = cli::get_path();
 
@@ -169,7 +171,7 @@ fn main() {
     match path.0 {
         true => {
             let library = parser(file).unwrap();
-            output(library);
+            library.output();
         },
         false => {
             println!("Built file to {:?}", path.1)
