@@ -13,11 +13,11 @@ title = { "title" ~ string }
 author = { "author" ~ string }
 name = { "name" ~ string }
 
-init = { name_type ~ "init" }
-add = { name_type ~ "add" ~ types ~ brackets }
-print = { name_type ~ "print" ~ types ~ brackets }
+init = { PUSH(name_type) ~ "init" }
+add = { PEEK ~ "add" ~ types ~ brackets }
+print = { PEEK ~ "print" ~ types ~ brackets }
 
-statement = _{ 
+statement = _{
     (index ~ "," ~ title ~ "," ~ author) |
     (name) |
     (index)
@@ -25,4 +25,4 @@ statement = _{
 
 brackets = { "{" ~ statement+ ~ "}"}
 expression = { init | (add | print) }
-main = _{ (expression ~ ";")+ }
+main = _{ SOI ~ (expression ~ ";")+ ~ EOI }
