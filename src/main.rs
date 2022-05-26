@@ -1,6 +1,7 @@
 use std::fs;
 use pest::Parser;
 use pest::error::Error;
+use pest::iterators::Pairs;
 
 extern crate pest;
 #[macro_use]
@@ -34,15 +35,7 @@ enum Type {
     User
 }
 
-fn main() {
-    // get file
-    let unparsed_file = fs::read_to_string("lang_target.lib")
-        .expect("cannot read file.");
-
-    // use parser
-    let file = LIBParser::parse(Rule::main, &unparsed_file)
-        .expect("cannot parse file.");
-
+fn parser(file: Pairs<Rule>) -> Result<(), Error<Rule>> {
     let mut libraries: Vec<Library> = Vec::new();
 
     for expression in file {
@@ -142,8 +135,22 @@ fn main() {
                 _ => unreachable!()
             }
         }
-        
     }
+
     println!("Library: {:?}", libraries.iter().next().unwrap());
     println!("Library user size: {:?}", libraries.iter().next().unwrap().users.iter().count());
+
+    Ok(())
+}
+
+fn main() {
+    // get file
+    let unparsed_file = fs::read_to_string("lang_target.lib")
+        .expect("cannot read file.");
+
+    // use parser
+    let file = LIBParser::parse(Rule::main, &unparsed_file)
+        .expect("cannot parse file.");
+
+    parser(file);
 }
