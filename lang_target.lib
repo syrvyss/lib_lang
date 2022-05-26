@@ -5,7 +5,7 @@ lib add user {
 
 lib add book {
     index 1,
-    title 'The Hobbit',
+    title 'Hobbit',
     author 'Tolkien'
 };
 
