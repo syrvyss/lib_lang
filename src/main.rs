@@ -2,28 +2,31 @@ use std::fs;
 use pest::Parser;
 use pest::error::Error;
 use pest::iterators::Pairs;
+use std::path::PathBuf;
 
 extern crate pest;
 #[macro_use]
 extern crate pest_derive;
 
+mod cli;
+
 #[derive(Parser)]
 #[grammar = "lib.pest"]
 pub struct LIBParser;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Book {
     title: String,
     author: String
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct User {
     name: String,
     books: Vec<Book>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Library {
     name: String,
     users: Vec<User>
@@ -35,7 +38,7 @@ enum Type {
     User
 }
 
-fn parser(file: Pairs<Rule>) -> Result<(), Error<Rule>> {
+fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
     let mut libraries: Vec<Library> = Vec::new();
 
     for expression in file {
@@ -126,7 +129,6 @@ fn parser(file: Pairs<Rule>) -> Result<(), Error<Rule>> {
                                     .split(" ")
                                     .last().unwrap().parse().unwrap();
         
-                                println!("Book {:?}", libraries.iter().next().unwrap().users.iter().nth(index - 1 as usize).unwrap());
                             },
                             _ => unreachable!()
                         }
@@ -137,20 +139,40 @@ fn parser(file: Pairs<Rule>) -> Result<(), Error<Rule>> {
         }
     }
 
-    println!("Library: {:?}", libraries.iter().next().unwrap());
-    println!("Library user size: {:?}", libraries.iter().next().unwrap().users.iter().count());
+    Ok(libraries.iter().next().unwrap().clone())
+}
 
-    Ok(())
+fn output(library: Library) {
+    println!("------------------");
+    println!("Users in library: ");
+        library.users.iter().for_each(|x| println!("{:?}", x.name));
+    println!("Books in library: ");
+        for i in library.users.iter() {
+            i.books.iter()
+                .for_each(|x| println!("Loaner: {:?}, {:?}, {:?}", i.name, x.title, x.author));
+        }
+    println!("Structure: {:?}", &library);
+    println!("------------------");
 }
 
 fn main() {
+    let path = cli::get_path();
+
     // get file
-    let unparsed_file = fs::read_to_string("lang_target.lib")
+    let unparsed_file = fs::read_to_string(&path.1)
         .expect("cannot read file.");
 
     // use parser
     let file = LIBParser::parse(Rule::main, &unparsed_file)
         .expect("cannot parse file.");
 
-    parser(file);
+    match path.0 {
+        true => {
+            let library = parser(file).unwrap();
+            output(library);
+        },
+        false => {
+            println!("Built file to {:?}", path.1)
+        }
+    }
 }
