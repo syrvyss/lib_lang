@@ -123,10 +123,10 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                 },
                 Rule::print => {
                     for item in test.into_inner() {
+                        let mut name = String::new();
+                        let mut index = 0usize;
                         match item.as_rule() {
-                            Rule::name_type => {
-                                let name = item.into_inner().next().unwrap().as_str();
-                            },
+                            Rule::name_type => {},
                             Rule::types => {
                                 let type_name = item.as_str();
                                 if type_name != "user" {
@@ -134,15 +134,15 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                                 }
                             },
                             Rule::brackets => {
-                                let index: usize = item.into_inner()
+                                index = item.into_inner()
                                     .as_str()
                                     .replace("\n", "")
                                     .split(" ")
                                     .last().unwrap().parse().unwrap();
-        
                             },
                             _ => unreachable!()
                         }
+                        println!("User at index: {}, Name: {}, Books: {}", index+1, libraries.iter().next().unwrap().users[index].name, index);
                     }
                 },
                 _ => unreachable!()
