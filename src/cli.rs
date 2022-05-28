@@ -1,7 +1,6 @@
 use std::path::PathBuf;
-use std::fs;
 
-use clap::{Args, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 
 #[derive(Debug, Parser)]
 #[clap(name = "lib_lang")]
