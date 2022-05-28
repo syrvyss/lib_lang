@@ -2,7 +2,6 @@ use std::fs;
 use pest::Parser;
 use pest::error::Error;
 use pest::iterators::Pairs;
-use std::path::PathBuf;
 
 extern crate pest;
 #[macro_use]
@@ -68,9 +67,8 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                 },
     
                 Rule::add => {
-                    let mut inner_values = test.into_inner();
+                    let inner_values = test.into_inner();
     
-                    let mut lib: Library = Library { name: String::new(), users: Vec::new() };
                     let mut type_name = Type::User;
     
                     for pair in inner_values {
@@ -121,8 +119,6 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                             },
                             _ => unreachable!()
                         }
-    
-    
                     }
                 },
                 Rule::print => {
