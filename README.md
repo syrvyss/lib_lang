@@ -14,6 +14,23 @@ Pseudo-programmng language for library maintanence and initialization.
 * `develop` is never to be edited directly, except in case of syntax errors or other similar cases.
 * `develop` is only to be merged into `master` when thorough testing has been made.
 
+## Installation
+
+Run in project root
+
+```sh
+# run condition if on macOS
+cargo run
+
+if [ -d /usr/bin/ ]; then
+    sudo mkdir /etc/bin/
+fi
+# run condition if on macOS
+
+sudo chmod +x target/debug/lib_lang
+sudo cp target/debug/lib_lang /usr/local/bin/
+```
+
 ## How to run
 
 ### File

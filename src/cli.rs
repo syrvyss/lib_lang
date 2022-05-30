@@ -5,7 +5,7 @@ use clap::{Parser, Subcommand};
 #[derive(Debug, Parser)]
 #[clap(name = "lib_lang")]
 #[clap(bin_name = "lib_lang")]
-#[clap(about = "dwmadwa", long_about = None)]
+#[clap(about = "Pseudo-programmng language for library maintanence and initialization.", long_about = None)]
 struct Cli {
     #[clap(subcommand)]
     command: Commands,
