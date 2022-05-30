@@ -142,7 +142,7 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                             },
                             _ => unreachable!()
                         }
-                        println!("User at index: {}, Name: {}, Books: {}", index+1, libraries.iter().next().unwrap().users[index+1].name, index);
+                        println!("User at index: {}, Name: {}, Books: {}", index+1, libraries.iter().next().unwrap().users[index-1].name, index);
                     }
                 },
                 _ => unreachable!()
