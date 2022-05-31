@@ -1,0 +1,24 @@
+lib init;
+lib add user {
+    name 'Nikolaj'
+};
+
+lib add user {
+    name 'Adrian'
+};
+
+lib add book {
+    index 1,
+    title 'Hobbit',
+    author 'Tolkien'
+};
+
+lib add book {
+    index 2,
+    title 'Dune',
+    author 'Tolkien'
+};
+
+lib print user {
+    index 1
+};

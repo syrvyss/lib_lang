@@ -1,0 +1,28 @@
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+alpha = _{ 'a'..'z' | 'A'..'Z' }
+digit = @{ '0'..'9' }
+number = _{ digit+ }
+
+name_type = @{ alpha+ ~ digit* }
+
+types = { "user" | "book" }
+
+string = _{ "'" ~ alpha+ ~ "'" }
+index = { "index" ~ number }
+title = { "title" ~ string }
+author = { "author" ~ string }
+name = { "name" ~ string }
+
+init = { PUSH(name_type) ~ "init" }
+add = { PEEK ~ "add" ~ types ~ brackets }
+print = { PEEK ~ "print" ~ types ~ brackets }
+
+statement = _{
+    (index ~ "," ~ title ~ "," ~ author) |
+    (name) |
+    (index)
+}
+
+brackets = { "{" ~ statement+ ~ "}"}
+expression = { init | (add | print) }
+main = _{ SOI ~ (expression ~ ";")+ ~ EOI }
