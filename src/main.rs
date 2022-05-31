@@ -124,7 +124,7 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                 Rule::print => {
                     for item in test.into_inner() {
                         let mut name = String::new();
-                        let mut index = 0usize;
+                        let mut index = 1usize;
                         match item.as_rule() {
                             Rule::name_type => {},
                             Rule::types => {
@@ -142,7 +142,7 @@ fn parser(file: Pairs<Rule>) -> Result<Library, Error<Rule>> {
                             },
                             _ => unreachable!()
                         }
-                        println!("User at index: {}, Name: {}, Books: {}", index+1, libraries.iter().next().unwrap().users[index+1].name, index);
+                        println!("User at index: {}, Name: {}, Books: {}", index, libraries.iter().next().unwrap().users.iter().nth(index).unwrap().name, index);
                     }
                 },
                 _ => unreachable!()
